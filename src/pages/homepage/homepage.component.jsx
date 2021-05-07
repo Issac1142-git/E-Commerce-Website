@@ -4,9 +4,10 @@ import DirectoryMenu from "../../components/directory-menu/directory-menu.compon
 import "./homepage.styles.scss";
 
 const homepage = (props) => {
+  console.log(props);
   return (
     <div className="homepage">
-      <DirectoryMenu />
+      <DirectoryMenu history={props.history} />
     </div>
   );
 };
