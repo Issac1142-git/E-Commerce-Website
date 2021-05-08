@@ -28,7 +28,6 @@ class Signin extends Component {
         <span>Signin with your email and password</span>
 
         <form onSubmit={this.formSubmitHandler}>
-          <label>E-mail</label>
           <FormInput
             type="email"
             name="email"
