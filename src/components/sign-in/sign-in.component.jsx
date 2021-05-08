@@ -12,6 +12,7 @@ class Signin extends Component {
 
   formSubmitHandler = (event) => {
     event.preventDefault();
+    this.setState({ email: "", password: "" });
   };
 
   inputChangeHandler = (event) => {
