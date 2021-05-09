@@ -6,7 +6,8 @@ import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { toggleCartIcon } from "../../redux/store/cart/cart.actions";
-
+import { selectCurrentUser } from "../../redux/store/user/user.reselect";
+import { selectCartHidden } from "../../redux/store/cart/cart.selector";
 import "./header.styles.scss";
 
 const header = ({ currentUser, hidden }) => (
@@ -38,8 +39,8 @@ const header = ({ currentUser, hidden }) => (
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.user.currentUser,
-    hidden: state.cart.hidden,
+    currentUser: selectCurrentUser(state),
+    hidden: selectCartHidden(state),
   };
 };
 
