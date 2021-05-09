@@ -7,7 +7,7 @@ import Header from "./components/header/header.component";
 import SignInAndSignOut from "./pages/sign-in-and-sign-out/sign-in-and-sign-out.component";
 import { auth } from "./firebase/firebase.utils";
 import { createUserProfileDocument } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/store/actions/user.actions";
+import { setCurrentUser } from "./redux/store/user/user.actions";
 import "./App.css";
 
 class App extends React.Component {
