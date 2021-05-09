@@ -11,3 +11,18 @@ export const addToItem = (cartItems, itemsToAdd) => {
   }
   return [...cartItems, { ...itemsToAdd, quantity: 1 }];
 };
+
+export const decreaseItem = (cartItems, itemsToDecrease) => {
+  const existingCartItems = cartItems.find(
+    (cartItem) => cartItem.id === itemsToDecrease.id
+  );
+
+  if (existingCartItems.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== itemsToDecrease.id);
+  }
+  return cartItems.map((cartItem) =>
+    cartItem.id === itemsToDecrease.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
