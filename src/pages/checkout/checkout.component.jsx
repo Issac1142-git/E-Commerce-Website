@@ -8,6 +8,7 @@ import {
 } from "../../redux/store/cart/cart.selector";
 import CheckoutItem from "../../components/checkout-items/checkout-items.component";
 import checkoutItem from "../../components/checkout-items/checkout-items.component";
+import StripeCheckoutButton from "../../components/stripe-button/stripe-button";
 
 const checkout = ({ cartItems, price }) => {
   return (
@@ -33,6 +34,11 @@ const checkout = ({ cartItems, price }) => {
         <CheckoutItem key={checkoutItem.id} cartItem={cartItem} />
       ))}
       <div className="total">Total Price: ${price}</div>
+      <div className="test-warning">
+        *Please use the following test credit card numbers for payments* 4242
+        4242 4242 4242 Exp: Any Future Date Cvv: four digit number
+      </div>
+      <StripeCheckoutButton price={price} />
     </div>
   );
 };
