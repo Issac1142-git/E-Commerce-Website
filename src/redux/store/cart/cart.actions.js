@@ -1,26 +1,34 @@
+import { cartActionTypes } from "./cart.actionTypes";
+
 export const toggleCartIcon = () => {
   return {
-    type: "TOGGLE_CART_ICON",
+    type: cartActionTypes.TOGGLE_CART_ICON,
   };
 };
 
 export const addItems = (item) => {
   return {
-    type: "ADD_ITEMS",
+    type: cartActionTypes.ADD_ITEMS,
     payload: item,
   };
 };
 
 export const removeItems = (item) => {
   return {
-    type: "REMOVE_ITEMS",
+    type: cartActionTypes.REMOVE_ITEMS,
     payload: item,
   };
 };
 
 export const decreaseItem = (item) => {
   return {
-    type: "DECREASE_ITEMS",
+    type: cartActionTypes.DECREASE_ITEMS,
     payload: item,
+  };
+};
+
+export const clearCartItems = () => {
+  return {
+    type: cartActionTypes.CLEAR_CART,
   };
 };

@@ -13,17 +13,32 @@ import {
   emailSigninSuccess,
   signoutSuccess,
   signoutFailed,
+  createUserSuccess,
+  createUserFailed,
 } from "./user.actions";
+
+export function* getSnapshotFromUserAuth(userAuth, additionalData) {
+  try {
+    const userRef = yield call(
+      createUserProfileDocument,
+      userAuth,
+      additionalData
+    );
+    const userSnapshot = yield userRef.get();
+    yield put(
+      emailSigninSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+    );
+  } catch (error) {
+    yield put(emailSigninFailed(error));
+  }
+}
 
 //* Google Signin
 
 export function* googleSigninAsync() {
   try {
     const { user } = yield auth.signInWithPopup(provider);
-    const userref = yield call(createUserProfileDocument, user);
-    const snapshot = yield userref.get();
-    // console.log("id pls", snapshot.data());
-    yield put(googleSigninSuccess({ id: snapshot.id, ...snapshot.data() }));
+    yield getSnapshotFromUserAuth(user);
   } catch (err) {
     yield put(googleSigninFailed(err.message));
   }
@@ -37,10 +52,7 @@ export function* onGoogleSigninStart() {
 export function* emailSigninAsync({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    const userref = yield call(createUserProfileDocument, user);
-    const snapshot = yield userref.get();
-    // console.log(snapshot.data());
-    yield put(emailSigninSuccess({ id: snapshot.id, ...snapshot.data() }));
+    yield getSnapshotFromUserAuth(user);
   } catch (err) {
     yield put(emailSigninFailed(err.message));
   }
@@ -55,9 +67,7 @@ export function* checkSessionAsync() {
   try {
     const userAuth = yield getCurrentUser();
     if (!userAuth) return;
-    const userRef = yield call(createUserProfileDocument, userAuth);
-    const snapshot = yield userRef.get();
-    yield put(emailSigninSuccess({ id: snapshot.id, ...snapshot.data() }));
+    yield getSnapshotFromUserAuth(userAuth);
   } catch (err) {
     yield put(emailSigninFailed(err.message));
   }
@@ -80,3 +90,34 @@ export function* signoutAsync() {
 export function* signout() {
   yield takeLatest(userActionTypes.SIGNOUT_START, signoutAsync);
 }
+
+//! create User with email and password
+
+export function* createUserAsync({
+  payload: { email, password, displayName },
+}) {
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    yield put(createUserSuccess({ user, additionalData: { displayName } }));
+    // yield put(checkSessionAsync());
+  } catch (err) {
+    yield put(createUserFailed(err.message));
+  }
+}
+
+export function* createUser() {
+  yield takeLatest(userActionTypes.CREATE_USER_START, createUserAsync);
+}
+
+// export function* onCreateUserSuccessAsync({
+//   payload: { user, additionalData },
+// }) {
+//   yield getSnapshotFromUserAuth(user, additionalData);
+// }
+
+// export function* onCreateUserSuccess() {
+//   yield takeLatest(
+//     userActionTypes.CREATE_USER_SUCCESS,
+//     onCreateUserSuccessAsync
+//   );
+// }

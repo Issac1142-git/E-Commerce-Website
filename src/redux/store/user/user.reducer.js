@@ -13,6 +13,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
+    case userActionTypes.CREATE_USER_SUCCESS:
+    case userActionTypes.CREATE_USER_SUCCESS:
     case userActionTypes.GOOGLE_SIGNIN_SUCCESS:
     case userActionTypes.EMAIL_SIGNIN_SUCCESS:
       return {
@@ -36,7 +38,9 @@ const userReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-
+      return {
+        ...state,
+      };
     default:
       return state;
   }
