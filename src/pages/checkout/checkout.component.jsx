@@ -7,7 +7,6 @@ import {
   selectCartTotalPrice,
 } from "../../redux/store/cart/cart.selector";
 import CheckoutItem from "../../components/checkout-items/checkout-items.component";
-import checkoutItem from "../../components/checkout-items/checkout-items.component";
 import StripeCheckoutButton from "../../components/stripe-button/stripe-button";
 
 const checkout = ({ cartItems, price }) => {
@@ -31,7 +30,7 @@ const checkout = ({ cartItems, price }) => {
         </div>
       </div>
       {cartItems.map((cartItem) => (
-        <CheckoutItem key={checkoutItem.id} cartItem={cartItem} />
+        <CheckoutItem key={Math.random() * 40} cartItem={cartItem} />
       ))}
       <div className="total">Total Price: ${price}</div>
       <div className="test-warning">

@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { ReactComponent as Logo } from "../../assets/images/crown/crown.svg";
-import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { toggleCartIcon } from "../../redux/store/cart/cart.actions";
@@ -16,8 +14,9 @@ import {
   OptionLink,
 } from "./header.styles";
 import "./header.styles.scss";
+import { signoutStart } from "../../redux/store/user/user.actions";
 
-const header = ({ currentUser, hidden }) => (
+const header = ({ currentUser, hidden, signout }) => (
   <HeaderContainer>
     <LogoContainer to="/">
       <Logo />
@@ -26,7 +25,7 @@ const header = ({ currentUser, hidden }) => (
       <OptionLink to="/shop">SHOP</OptionLink>
       <OptionLink to="/contact">CONTACT</OptionLink>
       {currentUser ? (
-        <OptionDiv onClick={() => auth.signOut()}>SIGNOUT</OptionDiv>
+        <OptionDiv onClick={signout}>SIGNOUT</OptionDiv>
       ) : (
         <OptionLink to="/signin">SIGNIN</OptionLink>
       )}
@@ -43,4 +42,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(header);
+const mapDispatchToProps = (dispatch) => ({
+  signout: () => dispatch(signoutStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

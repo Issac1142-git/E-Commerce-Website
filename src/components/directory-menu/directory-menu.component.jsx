@@ -8,8 +8,9 @@ import { sectionSelector } from "../../redux/store/directory/directory.selector"
 const directoryMenu = ({ sections, history }) => {
   return (
     <div className="directory-menu">
-      {sections.map(({ title, imageUrl, size, linkUrl }) => (
+      {sections.map(({ id, title, imageUrl, size, linkUrl }) => (
         <MenuItem
+          key={id}
           title={title}
           imgURL={imageUrl}
           size={size}

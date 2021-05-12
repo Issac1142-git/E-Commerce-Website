@@ -1,11 +1,18 @@
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./rootReducer";
-import thunk from "redux-thunk";
 import { persistStore } from "redux-persist";
-
+import createSagaMiddleware from "redux-saga";
 import { logger } from "redux-logger";
+import { onFetchCollectionsStart } from "./shop/shop.sagas";
+import {
+  onGoogleSigninStart,
+  onEmailSigninStart,
+  checkSession,
+  signout,
+} from "./user/user.sagas";
 
-const middlewares = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [sagaMiddleware];
 
 if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);
@@ -14,3 +21,9 @@ if (process.env.NODE_ENV === "development") {
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export const persistor = persistStore(store);
+
+sagaMiddleware.run(onFetchCollectionsStart);
+sagaMiddleware.run(onGoogleSigninStart);
+sagaMiddleware.run(onEmailSigninStart);
+sagaMiddleware.run(checkSession);
+sagaMiddleware.run(signout);
