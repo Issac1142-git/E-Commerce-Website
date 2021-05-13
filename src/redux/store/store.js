@@ -30,5 +30,5 @@ sagaMiddleware.run(onEmailSigninStart);
 sagaMiddleware.run(checkSession);
 sagaMiddleware.run(signout);
 sagaMiddleware.run(signup);
-// sagaMiddleware.run(signinAfterSignup);
+sagaMiddleware.run(signinAfterSignup);
 sagaMiddleware.run(clearCartAfterSignout);

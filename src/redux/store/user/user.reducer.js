@@ -13,7 +13,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-    case userActionTypes.SIGNUP_SUCCESS:
     case userActionTypes.SIGNIN_SUCCESS:
       return {
         ...state,

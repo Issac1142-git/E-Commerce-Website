@@ -87,7 +87,7 @@ export function* signup() {
 }
 
 export function* signinAfterSignupAsync({ payload: { user, additionalData } }) {
-  yield put(getSnapshotFromUserAuth(user, additionalData));
+  yield getSnapshotFromUserAuth(user, additionalData);
 }
 
 export function* signinAfterSignup() {
