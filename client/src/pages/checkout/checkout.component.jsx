@@ -32,10 +32,11 @@ const checkout = ({ cartItems, price }) => {
       {cartItems.map((cartItem) => (
         <CheckoutItem key={Math.random() * 40} cartItem={cartItem} />
       ))}
-      <div className="total">Total Price: ${price}</div>
+      <div className="total">Total Price: Rs{price}</div>
       <div className="test-warning">
-        *Please use the following test credit card numbers for payments* 4242
-        4242 4242 4242 Exp: Any Future Date Cvv: four digit number
+        *Please use the following test credit card numbers for payments*
+        <br />
+        4242 4242 4242 4242 Exp: Any Future Date Cvv: four digit number
       </div>
       <StripeCheckoutButton price={price} />
     </div>
