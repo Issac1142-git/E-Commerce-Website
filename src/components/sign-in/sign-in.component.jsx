@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -8,63 +8,57 @@ import {
   emailSigninStart,
 } from "../../redux/store/user/user.actions";
 
-class Signin extends Component {
-  state = {
+const signin = ({ emailSigninStart, signInWithGoogle }) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [credentials, setCredentials] = useState({
     email: "",
     password: "",
-  };
+  });
+  const { email, password } = credentials;
 
-  formSubmitHandler = (event) => {
+  const formSubmitHandler = (event) => {
     event.preventDefault();
-    const { emailSigninStart } = this.props;
-    const { email, password } = this.state;
     emailSigninStart(email, password);
   };
 
-  inputChangeHandler = (event) => {
+  const inputChangeHandler = (event) => {
     let { name, value } = event.target;
-    this.setState({
+    setCredentials({
+      ...credentials,
       [name]: value,
     });
   };
 
-  render() {
-    const { signInWithGoogle } = this.props;
-    return (
-      <div className="sign-in">
-        <h1 className="title">I already have an account</h1>
-        <span>Signin with your email and password</span>
+  return (
+    <div className="sign-in">
+      <h1 className="title">I already have an account</h1>
+      <span>Signin with your email and password</span>
 
-        <form onSubmit={this.formSubmitHandler}>
-          <FormInput
-            type="email"
-            name="email"
-            onChanged={this.inputChangeHandler}
-            value={this.state.email}
-            label="E-mail"
-          ></FormInput>
-          <FormInput
-            type="password"
-            name="password"
-            onChange={this.inputChangeHandler}
-            value={this.state.password}
-            label="Password"
-          ></FormInput>
-          <div className="buttons">
-            <CustomButton type="submit">SUMBIT</CustomButton>
-            <CustomButton
-              type="button"
-              onClick={signInWithGoogle}
-              isGoogleSignin
-            >
-              Signin with Google
-            </CustomButton>
-          </div>
-        </form>
-      </div>
-    );
-  }
-}
+      <form onSubmit={formSubmitHandler}>
+        <FormInput
+          type="email"
+          name="email"
+          onChanged={inputChangeHandler}
+          value={email}
+          label="E-mail"
+        ></FormInput>
+        <FormInput
+          type="password"
+          name="password"
+          onChange={inputChangeHandler}
+          value={password}
+          label="Password"
+        ></FormInput>
+        <div className="buttons">
+          <CustomButton type="submit">SUMBIT</CustomButton>
+          <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignin>
+            Signin with Google
+          </CustomButton>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -74,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Signin);
+export default connect(null, mapDispatchToProps)(signin);

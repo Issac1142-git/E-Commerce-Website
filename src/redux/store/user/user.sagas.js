@@ -86,7 +86,7 @@ export function* signup() {
   yield takeLatest(userActionTypes.SIGNUP_START, signupAsync);
 }
 
-export function* signinAfterSignupAsync({ user, additionalData }) {
+export function* signinAfterSignupAsync({ payload: { user, additionalData } }) {
   yield put(getSnapshotFromUserAuth(user, additionalData));
 }
 
