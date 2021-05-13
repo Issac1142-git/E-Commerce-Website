@@ -32,7 +32,7 @@ app.post("/payment", (req, res) => {
   };
   stripe.charges.create(body, (stripeErr, stripeRes) => {
     if (stripeErr) {
-      console.log(stripeErr);
+      //   console.log(stripeErr);
       res.status(500).send({ error: stripeErr });
     } else {
       res.status(200).send({ success: stripeRes });

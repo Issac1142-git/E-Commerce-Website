@@ -8,7 +8,7 @@ const stripeCheckoutButton = ({ price }) => {
     "pk_test_51ISkEYIt0zrohrePWhCcQJnjdyDIAu6s5fhYKTjAItyj3OUe3ahtlTnq0ne9jdYW4p1OxglAvyHAwzC9EIsd0kcR00Y4pdalgy";
 
   const onToken = (token) => {
-    console.log(token);
+    // console.log(token);
     // alert("Payment Successful");
     axios({
       url: "payment",
@@ -19,7 +19,7 @@ const stripeCheckoutButton = ({ price }) => {
       },
     })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert("Your payment Success");
       })
       .catch((err) => {
