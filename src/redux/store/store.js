@@ -9,8 +9,10 @@ import {
   onEmailSigninStart,
   checkSession,
   signout,
+  signup,
+  signinAfterSignup,
 } from "./user/user.sagas";
-
+import { clearCartAfterSignout } from "./cart/cart.sagas";
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];
 
@@ -27,3 +29,6 @@ sagaMiddleware.run(onGoogleSigninStart);
 sagaMiddleware.run(onEmailSigninStart);
 sagaMiddleware.run(checkSession);
 sagaMiddleware.run(signout);
+sagaMiddleware.run(signup);
+sagaMiddleware.run(signinAfterSignup);
+sagaMiddleware.run(clearCartAfterSignout);

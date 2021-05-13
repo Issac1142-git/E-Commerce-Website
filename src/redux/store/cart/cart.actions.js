@@ -1,3 +1,5 @@
+import { cartActionTypes } from "./cart.actionTypes";
+
 export const toggleCartIcon = () => {
   return {
     type: "TOGGLE_CART_ICON",
@@ -24,3 +26,7 @@ export const decreaseItem = (item) => {
     payload: item,
   };
 };
+
+export const clearCartItems = () => ({
+  type: cartActionTypes.CLEAR_CART,
+});
