@@ -1,31 +1,42 @@
-import UserActionTypes from "./user.types";
+import { userActionTypes } from "./user.actionTypes";
 
-const INITIAL_STATE = {
+const initialState = {
   currentUser: null,
   error: null,
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UserActionTypes.SIGN_IN_SUCCESS:
+    case userActionTypes.GOOGLE_SIGNIN_FAILED:
+    case userActionTypes.EMAIL_SIGNIN_FAILED:
       return {
         ...state,
-        currentUser: action.payload,
-        error: null,
+        error: action.payload,
       };
-    case UserActionTypes.SIGN_OUT_SUCCESS:
+    case userActionTypes.GOOGLE_SIGNIN_SUCCESS:
+    case userActionTypes.EMAIL_SIGNIN_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        currentUser: action.payload,
+      };
+
+    case userActionTypes.SIGNOUT_START:
+      return {
+        ...state,
+      };
+    case userActionTypes.SIGNOUT_SUCCESS:
       return {
         ...state,
         currentUser: null,
         error: null,
       };
-    case UserActionTypes.SIGN_IN_FAILURE:
-    case UserActionTypes.SIGN_OUT_FAILURE:
-    case UserActionTypes.SIGN_UP_FAILURE:
+    case userActionTypes.SIGNOUT_FAILED:
       return {
         ...state,
         error: action.payload,
       };
+
     default:
       return state;
   }
