@@ -5,6 +5,7 @@ import "./homepage.styles.scss";
 
 const homepage = (props) => {
   // console.log(props);
+  // throw Error;
   return (
     <HomePageContainer>
       <DirectoryMenu history={props.history} />
