@@ -7,6 +7,8 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  background-color: #222;
+  color: white;
 
   @media screen and (max-width: 800px) {
     height: 60px;
@@ -42,6 +44,8 @@ export const OptionsContainer = styled.div`
 const optionsStyles = css`
   padding: 10px 15px;
   cursor: pointer;
+  background-color: #222;
+  color: white;
 `;
 export const OptionDiv = styled.div`
   ${optionsStyles}
