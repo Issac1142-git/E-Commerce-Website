@@ -12,7 +12,7 @@ import Checkout from "./pages/checkout/checkout.component";
 import { selectCollectionForPreview } from "./redux/store/shop/shop.selector";
 import "./App.css";
 import { checkSession } from "./redux/store/user/user.actions";
-
+import { GlobalStyle } from "./global.styles";
 const app = ({ checkSession, currentUser }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -21,6 +21,7 @@ const app = ({ checkSession, currentUser }) => {
 
   return (
     <div className="App">
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={Homepage} />
