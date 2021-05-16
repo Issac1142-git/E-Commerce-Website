@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect, Suspense } from "react";
 import { createStructuredSelector } from "reselect";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import Homepage from "./pages/homepage/homepage.component";
-import ShopPage from "./pages/shop/shop.component";
-import Header from "./components/header/header.component";
-import SignInAndSignOut from "./pages/sign-in-and-sign-out/sign-in-and-sign-out.component";
 import { setCurrentUser } from "./redux/store/user/user.actions";
 import { selectCurrentUser } from "./redux/store/user/user.reselect";
-import Checkout from "./pages/checkout/checkout.component";
 import { selectCollectionForPreview } from "./redux/store/shop/shop.selector";
+import Header from "./components/header/header.component";
 import "./App.css";
 import { checkSession } from "./redux/store/user/user.actions";
 import { GlobalStyle } from "./global.styles";
+import Spinner from "./components/spinner/spinner.component";
+
+const Homepage = lazy(() => import("./pages/homepage/homepage.component"));
+const ShopPage = lazy(() => import("./pages/shop/shop.component"));
+const Checkout = lazy(() => import("./pages/checkout/checkout.component"));
+const SignInAndSignOut = lazy(() =>
+  import("./pages/sign-in-and-sign-out/sign-in-and-sign-out.component")
+);
+
 const app = ({ checkSession, currentUser }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
@@ -24,16 +29,18 @@ const app = ({ checkSession, currentUser }) => {
       <GlobalStyle />
       <Header />
       <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/checkout" component={Checkout} />
-        <Route
-          exact
-          path="/signin"
-          render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInAndSignOut />
-          }
-        />
+        <Suspense fallback={<Spinner />}>
+          <Route exact path="/" component={Homepage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              currentUser ? <Redirect to="/" /> : <SignInAndSignOut />
+            }
+          />
+        </Suspense>
       </Switch>
     </div>
   );
