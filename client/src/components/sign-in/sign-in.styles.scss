@@ -9,6 +9,11 @@
 
     .buttons{
         display: flex;
+        white-space: nowrap;
         justify-content: space-between;
+
+        .custom-button{
+            margin-right: 10px;
+        }
     }
 }
